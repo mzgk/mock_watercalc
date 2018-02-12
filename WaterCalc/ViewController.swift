@@ -10,6 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var groupView_1: InputView!
+    @IBOutlet weak var groupView_2: InputView!
+    @IBOutlet weak var groupView_3: InputView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +24,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        groupView_1.amountField.text = "3"
+        groupView_2.amountField.text = "3"
+        groupView_3.amountField.text = "3"
+    }
 
 }
 
