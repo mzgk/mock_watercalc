@@ -15,6 +15,11 @@ class InputView: UIView, UITextFieldDelegate {
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var totalLabel: UILabel!
 
+    // InoutView（系統）を表すID → VC側で設定される
+    var groupID = 0
+
+    static let notificationName = Notification.Name("InputNotification")
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNib(xibName: "InputView")
@@ -62,6 +67,14 @@ class InputView: UIView, UITextFieldDelegate {
             total = Int(numberField.text!)! * num!
         }
         totalLabel.text = String(total)
+
+        // 通知を投稿する（系統を表すIDと水量の計算結果）
+        NotificationCenter.default.post(
+            name: InputView.notificationName,
+            object: nil,
+            userInfo: ["id": groupID, "total": total]
+        )
+
         return true
     }
 }
