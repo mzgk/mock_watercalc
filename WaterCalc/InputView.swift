@@ -18,13 +18,26 @@ class InputView: UIView, UITextFieldDelegate {
     // InoutView（系統）を表すID → VC側で設定される
     var groupID = 0
 
+    // 水量の計算結果
+    var Total = 0 {
+        didSet {
+            // 通知を投稿する（系統を表すIDと水量の計算結果）
+            NotificationCenter.default.post(
+                name: InputView.notificationName,
+                object: nil,
+                userInfo: ["id": groupID, "total": Total]
+            )
+        }
+    }
+
+    // 通知ラベル（水量の計算結果）
     static let notificationName = Notification.Name("InputNotification")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNib(xibName: "InputView")
 
-        // 通知の登録
+        // 通知の登録（VCからの一括分）
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(allNotificarion(_:)),
@@ -37,7 +50,7 @@ class InputView: UIView, UITextFieldDelegate {
         super.init(coder: aDecoder)
         loadNib(xibName: "InputView")
 
-        // 通知の登録
+        // 通知の登録（VCからの一括分）
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(allNotificarion(_:)),
@@ -75,21 +88,13 @@ class InputView: UIView, UITextFieldDelegate {
             replacedString = "0"
         }
         let num = Int(replacedString)
-        var total = Int()
         if textField.tag == 1 {
-            total = num! * Int(amountField.text!)!
+            Total = num! * Int(amountField.text!)!
         }
         else {
-            total = Int(numberField.text!)! * num!
+            Total = Int(numberField.text!)! * num!
         }
-        totalLabel.text = String(total)
-
-        // 通知を投稿する（系統を表すIDと水量の計算結果）
-        NotificationCenter.default.post(
-            name: InputView.notificationName,
-            object: nil,
-            userInfo: ["id": groupID, "total": total]
-        )
+        totalLabel.text = String(Total)
 
         return true
     }
@@ -105,12 +110,7 @@ class InputView: UIView, UITextFieldDelegate {
         print("VALUE: \(value)")
 
         amountField.text = String(value)
-        let total = Int(numberField.text!)! * value
-        totalLabel.text = String(total)
-        NotificationCenter.default.post(
-            name: InputView.notificationName,
-            object: nil,
-            userInfo: ["id": groupID, "total": total]
-        )
+        Total = Int(numberField.text!)! * value
+        totalLabel.text = String(Total)
     }
 }
