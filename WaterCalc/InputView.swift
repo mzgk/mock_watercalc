@@ -23,11 +23,27 @@ class InputView: UIView, UITextFieldDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNib(xibName: "InputView")
+
+        // 通知の登録
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(allNotificarion(_:)),
+            name: ViewController.notificationName,
+            object: nil
+        )
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNib(xibName: "InputView")
+
+        // 通知の登録
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(allNotificarion(_:)),
+            name: ViewController.notificationName,
+            object: nil
+        )
     }
 
     /// .xibを読み込み、Viewをロードする
@@ -76,5 +92,25 @@ class InputView: UIView, UITextFieldDelegate {
         )
 
         return true
+    }
+
+    // 通知を受け取るメソッド
+    @objc func allNotificarion(_ notification: Notification) {
+        print("receive ALL Notification!")
+        guard let userInfo = notification.userInfo,
+            let value = userInfo["value"] as? Int else {
+                print("No userInfo found in notification")
+                return
+        }
+        print("VALUE: \(value)")
+
+        amountField.text = String(value)
+        let total = Int(numberField.text!)! * value
+        totalLabel.text = String(total)
+        NotificationCenter.default.post(
+            name: InputView.notificationName,
+            object: nil,
+            userInfo: ["id": groupID, "total": total]
+        )
     }
 }

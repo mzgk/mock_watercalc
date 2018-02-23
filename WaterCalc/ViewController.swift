@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var groupView_3: InputView!
     @IBOutlet weak var amountLabel: UILabel!
 
+    static let notificationName = Notification.Name("AllNotification")
+
     // 総合計
     var amount = 0
     // 系統ごとの水量を格納する配列（要素数：８、初期値：０）
@@ -59,9 +61,16 @@ class ViewController: UIViewController {
     }
 
     @IBAction func buttonTapped(_ sender: UIButton) {
-        groupView_1.amountField.text = "3"
-        groupView_2.amountField.text = "3"
-        groupView_3.amountField.text = "3"
+//        groupView_1.amountField.text = "3"
+//        groupView_2.amountField.text = "3"
+//        groupView_3.amountField.text = "3"
+
+        // 通知を投稿する（一括の水量）
+        NotificationCenter.default.post(
+            name: ViewController.notificationName,
+            object: nil,
+            userInfo: ["value": 3]
+        )
     }
 
     // 通知を受け取るメソッド
