@@ -82,5 +82,13 @@ class ViewController: UIViewController {
         // TODO: 保存を考えると、系統・本数・水量・合計の１グループ単位で辞書または名前つきタプルで受け取って
         // 配列にしておいた方がいいかも
     }
+
+    // 画面タップでキーボードを閉じる
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
+    // 一括の水量設定もボタンでの発火にしないでTextFieldだけにして、入力でInputViewに新しい通知をとばす
+    // → 通知を受けたら計算する　→ 表示する　→ VC側に通知を飛ばす（"InputNotification"）
 }
 
