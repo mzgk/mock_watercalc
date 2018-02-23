@@ -58,14 +58,14 @@
 		32C1AA962030672800B4F9F3 /* WaterCalc */ = {
 			isa = PBXGroup;
 			children = (
-				32C1AA972030672800B4F9F3 /* AppDelegate.swift */,
-				32C1AA992030672800B4F9F3 /* ViewController.swift */,
-				32C1AA9B2030672800B4F9F3 /* Main.storyboard */,
-				32C1AA9E2030672800B4F9F3 /* Assets.xcassets */,
-				32C1AAA02030672800B4F9F3 /* LaunchScreen.storyboard */,
 				32C1AAA32030672800B4F9F3 /* Info.plist */,
-				32C1AAA92030674700B4F9F3 /* InputView.xib */,
+				32C1AA972030672800B4F9F3 /* AppDelegate.swift */,
 				32C1AAAB2031391B00B4F9F3 /* InputView.swift */,
+				32C1AA992030672800B4F9F3 /* ViewController.swift */,
+				32C1AA9E2030672800B4F9F3 /* Assets.xcassets */,
+				32C1AAA92030674700B4F9F3 /* InputView.xib */,
+				32C1AAA02030672800B4F9F3 /* LaunchScreen.storyboard */,
+				32C1AA9B2030672800B4F9F3 /* Main.storyboard */,
 			);
 			path = WaterCalc;
 			sourceTree = "<group>";
